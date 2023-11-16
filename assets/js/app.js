@@ -25859,7 +25859,7 @@ function contact_form() {
         });
         $.ajax({
             type: "POST",
-            url: "assets/php/contact.php",
+            url: "https://nonrox.com/assets/contact.php",
             data: t,
             dataType: "json",
             success: function(e) {
