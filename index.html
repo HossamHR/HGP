@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>REFRAME | Personal One Page HTML Template</title>
+    <title>Hossam Galal</title>
     <link rel="icon" type="image/png" href="assets/images/favicon.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,17 +50,18 @@
                 <li><a class="scroll-to" href="#intro"><span class="ti-location-pin"></span><p class="small">Home</p></a></li>
                 <li><a class="scroll-to" href="#about"><span class="ti-user"></span><p class="small">About</p></a></li>
                 <li><a class="scroll-to" href="#resume"><span class="ti-align-left"></span><p class="small">Resume</p></a></li>
-                <li><a class="scroll-to" href="#portfolio"><span class="ti-view-grid"></span><p class="small">Portfolio</p></a></li>
+                <!-- <li><a class="scroll-to" href="#portfolio"><span class="ti-view-grid"></span><p class="small">Portfolio</p></a></li> -->
                 <li><a class="scroll-to" href="#contact"><span class="ti-comments"></span><p class="small">Contact</p></a></li>
-                <li><a href="shortcodes.html" target="_blank"><span class="ti-new-window"></span><p class="small">Shortcodes</p></a></li>
+                <!-- <li><a href="shortcodes.html" target="_blank"><span class="ti-new-window"></span><p class="small">Shortcodes</p></a></li> -->
             </ul>
             <div class="head m-b-2 m-t-7">
                 <p class="small">Social</p>
             </div>
             <div class="social-items">
-                <div class="item"><a href="#"><span class="ti-instagram"></span></a></div>
-                <div class="item"><a href="#"><span class="ti-twitter"></span></a></div>
-                <div class="item"><a href="#"><span class="ti-dribbble"></span></a></div>
+                <!-- <div class="item"><a href="#"><span class="ti-instagram"></span></a></div> -->
+                <!-- <div class="item"><a href="#"><span class="ti-twitter"></span></a></div> -->
+                <div class="item"><a href="https://www.facebook.com/profile.php?id=100009298179868"><span class="ti-facebook"></span></a></div>
+                <!-- <div class="item"><a href="https://www.facebook.com/profile.php?id=100009298179868"><span class="ti-whatsapp"></span></a></div> -->
             </div>
         </div>
     </div>
@@ -620,11 +621,11 @@
                             <h3 class="m-b-4 m-l-1 scroll-animation">Let’s get in touch.</h3>
                             <div class="seperator-line m-b-4 scroll-animation"></div>
                             <p class="m-b-6 scroll-animation">Fill out my form below and send me an email.</p>
-                            <form id="contact-form" action="https://nonrox.com/hg/assets/contact.php" method="post" autocomplete="off"> <input type="text" id="contact-form-name" class="scroll-animation" name="name" placeholder="* Name"> <input type="text" id="contact-form-email" class="scroll-animation m-t-5" name="email" placeholder="* E-Mail"> <input data-require-filling="false"
+                            <form id="contact-form" action="https://nonrox.com/hg/assets/contact.php" method="get" autocomplete="off"> <input type="text" id="contact-form-name" class="scroll-animation" name="name" placeholder="* Name"> <input type="text" id="contact-form-email" class="scroll-animation m-t-5" name="email" placeholder="* E-Mail"> <input data-require-filling="false"
                                     type="text" id="contact-form-phone" class="scroll-animation m-t-5" name="phone" placeholder="Phone">
                                 <div class="hpc"><input type="text" id="contact-form-country" name="taxid" placeholder="* Tax ID"></div><textarea id="contact-form-message" class="scroll-animation m-t-5" name="message" placeholder="* Message"></textarea>
                                 <div class="button-area m-t-5 scroll-animation">
-                                <button type="submit" class="default-button"> <span class="button-text">Send</span> <span class="icon-button m-l-2"><span class="ti-arrow-right"></span></span> </button>
+                                <button id="openEmailButton" type="submit" class="default-button"> <span class="button-text">Send</span> <span class="icon-button m-l-2"><span class="ti-arrow-right"></span></span> </button>
                                     <p class="small">* Marked fields are required to fill.</p>
                                 </div>
                                 <div class="success-box">
@@ -651,4 +652,24 @@
 </script>
 
 
+<!-- <script>
+    document.getElementById('openEmailButton').addEventListener('click', function() {
+      var name = encodeURIComponent(document.getElementById('contact-form-name').value);
+      var email = encodeURIComponent(document.getElementById('contact-form-email').value);
+      var phone = encodeURIComponent(document.getElementById('contact-form-phone').value);
+      var taxid = encodeURIComponent(document.getElementById('contact-form-country').value);
+      var message = encodeURIComponent(document.getElementById('contact-form-message').value);
+  
+      var mailtoLink = 'mailto:@.com?' +
+        'subject=Contact Form Submission' +
+        '&body=Name: ' + name +
+        '%0AEmail: ' + email +
+        '%0APhone: ' + phone +
+        '%0ATax ID: ' + taxid +
+        '%0AMessage: ' + message;
+  
+      // Open the default email client
+      window.location.href = mailtoLink;
+    });
+  </script> -->
 </html>
