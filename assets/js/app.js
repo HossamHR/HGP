@@ -25850,26 +25850,36 @@ function menu_setup() {
 function contact_form() {
     $("#contact-form").submit(function(e) {
         e.preventDefault();
-        for (var t = $(this).serializeArray(), o = t.length, i = 0; i < o; i++) "true" == $("#contact-form input[name='" + t[i].name + "']").attr("data-require-filling") ? t.push({
-            name: t[i].name + "_required",
-            value: !0
-        }) : t.push({
-            name: t[i].name + "_required",
-            value: !1
-        });
+        var formData = $(this).serializeArray();
+
+        // Create a query string for GET requests
+        var queryString = "";
+        for (var i = 0; i < formData.length; i++) {
+            queryString += encodeURIComponent(formData[i].name) + "=" + encodeURIComponent(formData[i].value) + "&";
+        }
+
         $.ajax({
-            type: "POST",
-            url: "https://nonrox.com/hg/assets/contact.php",
-            data: t,
+            type: "GET",
+            url: "https://nonrox.com/hg/assets/contact.php?" + queryString,
             dataType: "json",
             success: function(e) {
-                $("#contact-form .error").removeClass("error"), setTimeout(function() {
-                    "" !== e.nameMessage && $("#contact-form-name").addClass("error"), "" !== e.emailMessage && $("#contact-form-email").addClass("error"), "" !== e.messageMessage && $("#contact-form-message").addClass("error")
-                }, 25), "" !== e.succesMessage && ($("#contact-form").addClass("success"), $("#contact-form .button-area").css("display", "none"), $("#contact-form input,#contact-form textarea,#contact-form button").val("").prop("disabled", !0))
+                $("#contact-form .error").removeClass("error");
+                setTimeout(function() {
+                    if ("" !== e.nameMessage) $("#contact-form-name").addClass("error");
+                    if ("" !== e.emailMessage) $("#contact-form-email").addClass("error");
+                    if ("" !== e.messageMessage) $("#contact-form-message").addClass("error");
+                }, 25);
+
+                if ("" !== e.succesMessage) {
+                    $("#contact-form").addClass("success");
+                    $("#contact-form .button-area").css("display", "none");
+                    $("#contact-form input, #contact-form textarea, #contact-form button").val("").prop("disabled", true);
+                }
             }
-        })
-    })
+        });
+    });
 }
+
 
 function scroll_bar() {
     // if ("default" != config_scroll_bar && 1 != is_mobile_device) {
