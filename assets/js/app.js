@@ -25882,7 +25882,7 @@ function contact_form() {
         var queryString = $.param(formData);
 
         // Open a new window or tab with the constructed URL
-        window.open("https://nonrox.com/hg/assets/contact.php?" + queryString, "_blank");
+        window.open("https://nonrox.com/hg/assets/contact.php?" + queryString, "");
 
         // You can also perform the AJAX request if needed
         // $.ajax({
