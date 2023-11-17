@@ -25847,32 +25847,24 @@ function menu_setup() {
         })
 }
 
-// function contact_form() {
-//     $("#contact-form").submit(function(e) {
-//         e.preventDefault();
-//         for (var t = $(this).serializeArray(), o = t.length, i = 0; i < o; i++) "true" == $("#contact-form input[name='" + t[i].name + "']").attr("data-require-filling") ? t.push({
-//             name: t[i].name + "_required",
-//             value: !0
-//         }) : t.push({
-//             name: t[i].name + "_required",
-//             value: !1
-//         });
-//         $.ajax({
-//             type: "POST",
-//             url: "https://nonrox.com/hg/assets/contact.php",
-//             data: t,
-//             dataType: "json",
-//             success: function(e) {
-//                 $("#contact-form .error").removeClass("error"), setTimeout(function() {
-//                     "" !== e.nameMessage && $("#contact-form-name").addClass("error"), "" !== e.emailMessage && $("#contact-form-email").addClass("error"), "" !== e.messageMessage && $("#contact-form-message").addClass("error")
-//                 }, 25), "" !== e.succesMessage && ($("#contact-form").addClass("success"), $("#contact-form .button-area").css("display", "none"), $("#contact-form input,#contact-form textarea,#contact-form button").val("").prop("disabled", !0))
-//             }
-//         })
-//     })
-// }
+function hideAllElementsExceptSuccessBox() {
+    // Select and hide all elements with specific unique classes
+    var inpElements = document.querySelectorAll('.inp');
+    var successBox = document.querySelector('.success-box');
 
+    // Hide elements with class "inp"
+    inpElements.forEach(function(inpElement) {
+        inpElement.style.display = 'none';
+    });
+
+    // Show the success box
+    successBox.style.display = 'block';
+}
+
+
+// Call the function after the form is submitted and before redirecting
 function contact_form() {
-    $("#contact-form").submit(function(e) {
+    $("#contact-form").submit(function (e) {
         e.preventDefault();
 
         // Serialize form data
@@ -25892,13 +25884,18 @@ function contact_form() {
         //     dataType: "json",
         //     success: function(response) {
         //         // Handle success response if required
+        //         handleSuccess();
         //     }
         // });
+
+        // Additional function to hide elements except success-box
+        hideAllElementsExceptSuccessBox();
     });
 }
 
 // Attach the contact_form function to the submit event of the form
 contact_form();
+
 
 
 function scroll_bar() {
