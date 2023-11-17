@@ -25847,38 +25847,58 @@ function menu_setup() {
         })
 }
 
+// function contact_form() {
+//     $("#contact-form").submit(function(e) {
+//         e.preventDefault();
+//         for (var t = $(this).serializeArray(), o = t.length, i = 0; i < o; i++) "true" == $("#contact-form input[name='" + t[i].name + "']").attr("data-require-filling") ? t.push({
+//             name: t[i].name + "_required",
+//             value: !0
+//         }) : t.push({
+//             name: t[i].name + "_required",
+//             value: !1
+//         });
+//         $.ajax({
+//             type: "POST",
+//             url: "https://nonrox.com/hg/assets/contact.php",
+//             data: t,
+//             dataType: "json",
+//             success: function(e) {
+//                 $("#contact-form .error").removeClass("error"), setTimeout(function() {
+//                     "" !== e.nameMessage && $("#contact-form-name").addClass("error"), "" !== e.emailMessage && $("#contact-form-email").addClass("error"), "" !== e.messageMessage && $("#contact-form-message").addClass("error")
+//                 }, 25), "" !== e.succesMessage && ($("#contact-form").addClass("success"), $("#contact-form .button-area").css("display", "none"), $("#contact-form input,#contact-form textarea,#contact-form button").val("").prop("disabled", !0))
+//             }
+//         })
+//     })
+// }
+
 function contact_form() {
     $("#contact-form").submit(function(e) {
         e.preventDefault();
+
+        // Serialize form data
         var formData = $(this).serializeArray();
 
-        // Create a query string for GET requests
-        var queryString = "";
-        for (var i = 0; i < formData.length; i++) {
-            queryString += encodeURIComponent(formData[i].name) + "=" + encodeURIComponent(formData[i].value) + "&";
-        }
+        // Build query string from serialized data
+        var queryString = $.param(formData);
 
-        $.ajax({
-            type: "GET",
-            url: "https://nonrox.com/hg/assets/contact.php?" + queryString,
-            dataType: "json",
-            success: function(e) {
-                $("#contact-form .error").removeClass("error");
-                setTimeout(function() {
-                    if ("" !== e.nameMessage) $("#contact-form-name").addClass("error");
-                    if ("" !== e.emailMessage) $("#contact-form-email").addClass("error");
-                    if ("" !== e.messageMessage) $("#contact-form-message").addClass("error");
-                }, 25);
+        // Open a new window or tab with the constructed URL
+        window.open("https://nonrox.com/hg/assets/contact.php?" + queryString, "_blank");
 
-                if ("" !== e.succesMessage) {
-                    $("#contact-form").addClass("success");
-                    $("#contact-form .button-area").css("display", "none");
-                    $("#contact-form input, #contact-form textarea, #contact-form button").val("").prop("disabled", true);
-                }
-            }
-        });
+        // You can also perform the AJAX request if needed
+        // $.ajax({
+        //     type: "GET",
+        //     url: "https://nonrox.com/hg/assets/contact.php",
+        //     data: formData,
+        //     dataType: "json",
+        //     success: function(response) {
+        //         // Handle success response if required
+        //     }
+        // });
     });
 }
+
+// Attach the contact_form function to the submit event of the form
+contact_form();
 
 
 function scroll_bar() {
