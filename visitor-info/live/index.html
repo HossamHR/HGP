@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Location with Google Maps Link</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #location {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 18px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Find Your Location</h1>
+    <button id="findLocation">Get Location</button>
+    <p id="location">Click the button to get your current location.</p>
+    <a id="mapLink" href="#" style="display: none;">View on Google Maps</a>
+</div>
+
+<script>
+    const locationElement = document.getElementById('location');
+    const findLocationButton = document.getElementById('findLocation');
+    const mapLink = document.getElementById('mapLink');
+
+    findLocationButton.addEventListener('click', () => {
+        // Check if Geolocation is available
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Update location text
+                    locationElement.innerHTML = `Location (Lat, Long): ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+
+                    // Create Google Maps URL
+                    const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+                    // Show the map link
+                    mapLink.href = googleMapsUrl;
+                    mapLink.style.display = 'inline';
+                },
+                function (error) {
+                    // Handle errors
+                    locationElement.innerText = 'Unable to retrieve location';
+                    console.error('Error:', error);
+                }
+            );
+        } else {
+            locationElement.innerText = 'Geolocation is not supported by this browser.';
+        }
+    });
+</script>
+
+</body>
+</html>
