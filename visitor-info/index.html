@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User IP and Location</title>
+    <style>
+        /* Dark mode background and color scheme */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #1e1e2f, #121216);
+            color: #ffffff;
+            text-align: center;
+            padding: 0 40px 0 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #ff6b6b, #f94b4b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        .info {
+            margin-top: 20px;
+            font-size: 1.2em;
+            background: #222;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #cfcfcf;
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+
+        a {
+            color: #4fc3f7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #29b6f6;
+            text-decoration: underline;
+        }
+
+        /* Developer credit styling */
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+            text-align: center;
+            position: absolute;
+            bottom: 0px;
+          
+
+          
+          background: #222;
+
+          border-top-left-radius: 15px;
+          border-top-right-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+          border-left: 1px solid rgba(255, 255, 255, 0.3);
+          border-right: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .footer a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: bold;
+            font-style: italic;
+            transition: color 0.3s ease-in-out;
+          
+          
+          
+        }
+
+        .footer a:hover {
+            color: #f94b4b;
+        }
+
+        /* Animation for the heading text glow */
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #f94b4b, 0 0 20px #ff6b6b, 0 0 30px #ff6b6b, 0 0 40px #f94b4b;
+            }
+            to {
+                text-shadow: 0 0 20px #ff6b6b, 0 0 30px #f94b4b, 0 0 40px #ff6b6b, 0 0 50px #ff6b6b;
+            }
+        }
+
+        /* Smooth animation for the content fade-in */
+        .info {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>User IP and Location</h1>
+    <div id="ip-info" class="info">
+        Loading your information...
+    </div>
+
+    <!-- Developer Credit -->
+    <div class="footer">
+        Developed by <a href="https://hossamhr.com" target="_blank">Hossam Galal</a>
+    </div>
+
+    <script>
+        async function fetchIpInfo() {
+            try {
+                // Fetch the user's IP address from ipinfo.io
+                const ipInfoResponse = await fetch('https://ipinfo.io/json');
+                const ipInfoData = await ipInfoResponse.json();
+                const userIp = ipInfoData.ip;
+
+                // Fetch detailed location info from ipgeolocation.io using the user's IP
+                const geoResponse = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=02d609e60eaf494d9bb9105839ab4fe0&ip=${userIp}`);
+                const geoData = await geoResponse.json();
+
+                const infoDiv = document.getElementById('ip-info');
+                infoDiv.innerHTML = `
+                    <p><strong>IP Address:</strong> ${geoData.ip}</p>
+                    <p><strong>City:</strong> ${geoData.city}</p>
+                    <p><strong>Region:</strong> ${geoData.state_prov}</p>
+                    <p><strong>Country:</strong> ${geoData.country_name}</p>
+                    <p><strong>Location (Lat, Long):</strong> ${geoData.latitude}, ${geoData.longitude} <a href="https://www.google.com/maps/place/${geoData.latitude},${geoData.longitude}" target="_blank">view on map</a></p>
+                    <p><strong>Timezone:</strong> ${geoData.time_zone.name}</p>
+                    <p><strong>ISP:</strong> ${geoData.isp}</p>
+                `;
+            } catch (error) {
+                document.getElementById('ip-info').innerText = 'Error fetching IP or location information.';
+            }
+        }
+
+        fetchIpInfo();
+    </script>
+</body>
+</html>
